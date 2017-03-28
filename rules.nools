@@ -1,0 +1,43 @@
+define Message {
+    text: '',
+    constructor: function(message) {
+        this.text = message;
+    }
+}
+ 
+//find any message that starts with hello
+rule Hello {
+    when {
+        m: Message m.text =~ /^hello(\s*world)?$/;
+    }
+    then {
+        console.log("Hello rule fired.");
+    }
+}
+ 
+//find all messages then end in goodbye
+rule Goodbye {
+    when {
+        m: Message m.text =~ /.*goodbye$/;
+    }
+    then {
+        console.log("Goodbye rule fired.");
+    }
+}
+ 
+define Client {
+    age: 0,
+    constructor: function(age) {
+        this.age = age;
+    }
+}
+ 
+rule CheckAge {
+    when {
+        // Multiple conditions in same rule
+        c: Client c.age > 30 && c.age < 65
+    }
+    then {
+        console.log("Eligible for loan");
+    }
+}
